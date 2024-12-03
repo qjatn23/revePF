@@ -1,0 +1,471 @@
+@charset "UTF-8";
+
+:root { -
+	-light-gray: #F5F5F5; -
+	-gray: #E0E0E0; -
+	-dark-gray: #222222; -
+	-white: #FFFFFF; -
+	-white50: #FFFFFF50; -
+	-white80: #FFFFFF80; -
+	-black: #0A0A0A; -
+	-black50: #0A0A0A50; -
+	-black80: #0A0A0A80; -
+	-black90: #0A0A0A90; -
+	-id-color: #A48374; -
+	-txt-color-light: #555555; -
+	-txt-color-gray: #777777; -
+	-font-size-big: 2.6rem; -
+	-font-size-xxxl: 2.4rem; -
+	-font-size-xxl: 2.2rem; -
+	-font-size-xl: 2rem; -
+	-font-size-lg: 1.8rem; -
+	-font-size-md: 1.6rem; -
+	-font-size-sm: 1.4rem; -
+	-font-size-xs: 1.2rem; -
+	-font-weight-bold: 700; -
+	-font-weight-medium: 500; -
+	-font-weight-regular: 400; -
+	-font-weight-light: 200;
+}
+
+.wrap {
+	width: 100%;
+	position: relative;
+}
+/* 공통 */
+.swiper {
+	width: 100%;
+	height: 100%;
+	min-height: 600px;
+}
+
+.swiper-slide {
+	width: 100%;
+	height: 100%;
+	min-height: 500px;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.brands_items_list {
+	width: 75%;
+	height: 100%;
+	margin: 0 auto;
+}
+
+
+/* 상품 정렬  */
+
+.sort-radio-buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+	padding-top: 20px;
+	justify-content: center;
+}
+
+.sort-radio-buttons input[type="submit"] {
+	display: none;
+}
+
+.sort-radio-buttons label {
+	cursor: pointer;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	transition: background-color 0.3s, transform 0.2s;
+	width: 80px;
+	text-align: center;
+}
+
+.sort-radio-buttons label:hover {
+	background-color: #f0f0f0;
+	transform: scale(1.02);
+}
+
+.sort-radio-buttons input[type="submit"]:checked+label {
+	background-color: #e0e0e0;
+	border-color: #bbb;
+}
+
+.gallery_list {
+	width: 100%;
+	padding: 2rem 0rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	gap: 2rem;
+}
+
+.gallery {
+	display: flex;
+	justify-content: center;
+	height: 400px;
+	align-items: center;
+	width: 100%;
+}
+
+.gallery-item {
+	width: 280px;
+	height: 280px;
+	overflow: hidden;
+}
+
+.gallery-item img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: cover;
+	transition: transform 0.3s ease;
+}
+
+.gallery-text {
+	height: auto;
+	line-height: 1.4;
+	padding: 1rem 1rem;
+}
+
+.card-body span {
+	font-size: 1.4rem;
+	font-weight: normal;
+}
+
+.brands_no, .goods_no,.woman_no {
+	color: #F5F5F5;
+}
+
+.brands_cate_name, .cate_name,.woman_cate_name {
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.brands_name, .goods_name,.woman_name {
+	font-weight: 400;
+	font-size: 1.5rem;
+}
+
+.sale_price {
+	font-weight: bold;
+	font-size: 1.4rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.discount {
+	color: #ff0000;
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+
+.goods_no {
+	color: #F5F5F5;
+}
+
+.woman_no {
+	color: #F5F5F5;
+}
+
+.price {
+	text-decoration: line-through;
+	color: #777777;
+}
+
+.sale {
+	color: #000;
+	font-size: 1.7rem;
+	font-weight: 400;
+}
+
+.pagination {
+	justify-content: center
+}
+
+.gallery-item:hover img {
+	transform: scale(1.1);
+}
+
+
+.category-radio-group {
+	display: flex;
+	gap: 10px;
+	width: 100%;
+	height: auto;
+	
+}
+
+.form-check {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.form-check label {
+	font-size: 1.6rem;
+	color: #000;
+	padding: 0rem 2rem;
+	text-align: center;
+	border: 1px solid #ccc;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	
+}
+
+.form-check input {
+	margin: 0;
+	display: none;
+	padding: 2rem 0rem;
+	text-align: center;
+}
+
+
+
+
+/* 공통 */
+
+/* 브랜드 리스트 메인  */
+.brands_lists {
+	width: 100%;
+	height: 100%;
+	min-height: 750px;
+	padding-top: 80px;
+	gap: 2rem;
+}
+
+.accordion {
+	width: 100%;
+	height: 750px;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+	gap: 2rem;
+}
+
+.tab_title {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 4rem;
+	text-shadow: 1px 2px 2px #000;
+}
+
+.tab2 {
+	position: relative;
+	width: 30%;
+	height: inherit;
+	padding: 20px;
+	background: #000;
+	color: #fff;
+	cursor: pointer;
+	transition: width 0.5s ease;
+	border: 1px solid #ece4e2;
+	gap: 2rem;
+}
+
+.tab2 img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: all 0.5s ease;
+}
+
+.caption {
+	position: absolute;
+	z-index: 2;
+	white-space: nowrap;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+}
+
+.caption h2 {
+	margin-bottom: 2px;
+	text-overflow: clip;
+	font-size: 24px;
+	text-transform: uppercase;
+}
+
+.caption p {
+	margin: 0;
+	font-size: 2rem;
+}
+
+.tab2:hover .tab_title {
+	display: none;
+}
+
+.tab2:hover img {
+	opacity: 0.6;
+}
+
+.tab2:hover {
+	width: 80%;
+}
+
+.tab2:hover .caption {
+	transition: all 0.5s ease;
+	opacity: 1;
+}
+
+.sec_1 {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.brands_sec_1 {
+	position: relative;
+	width: 100%;
+	text-align: center;
+	height: 380px;
+	padding-top: 80px;
+}
+
+.brands_sec_1 img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+	opacity: 1.2;
+}
+
+.brands_sec_1_text {
+	width: 100%;
+	position: absolute;
+	top: 50%;
+}
+
+.brands_sec_1_text h1 {
+	font-size: 4rem;
+	color: #fff;
+}
+
+.brands_sec_1_text h2 {
+	font-size: 2.5rem;
+	color: #fff;
+}
+
+/* 브랜드 리스트 메인 끝   */
+
+/* 남성  리스트 메인  */
+/* section 3 */
+.section.main-trendpick {
+	height: auto;
+}
+
+.trendpick-wrap {
+	padding-bottom: 3rem;
+}
+
+.main-trendpick .product-thumbnail {
+	
+}
+
+.section section-width__limit main-trendpick {
+	margin: 0rem auto;
+}
+
+/* 여성 */
+.woman_main {
+	width: 100%;
+	height: 100%;
+	padding-top: 140px;
+}
+
+.woman_banner {
+	width: 100%;
+	height: 100%;
+	min-height: 320px;
+}
+
+.woman_banner img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+#woman_cate_code1 {
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+#cate_code1 {
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+@media ( max-width : 768px) {
+	.gallery_list {
+		flex-wrap: wrap;
+	}
+	.brands_lists {
+		width: 100%;
+		height: 100%;
+		min-height: 300px;
+		padding: 0;
+		padding-top: 20px;
+	}
+	.accordion {
+		width: 100%;
+		height: 300px;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		padding: none;
+		overflow: none;
+		padding-top: 20px;
+	}
+	.brands_sec_1 {
+		position: relative;
+		width: 100%;
+		text-align: center;
+		height: 150px;
+		padding: 0;
+		padding-top: 20px;
+	}
+	.brands_sec_1 img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		opacity: 1.2;
+	}
+	.brands_sec_1_text {
+		width: 100%;
+		position: absolute;
+		top: 40%;
+	}
+	.brands_sec_1_text h1 {
+		font-size: 2rem;
+		color: #fff;
+	}
+	.brands_sec_1_text h2 {
+		font-size: 1rem;
+		color: #fff;
+	}
+}
+
+@media ( max-width : 480px) {
+	.gallery-item {
+		width: 384px;
+	}
+}

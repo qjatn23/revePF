@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.zerock.order.mapper.OrderMapper">
+  
+  
+  <!-- 주문 테이블에 데이터 삽입 -->
+    <!-- 주문 삽입 -->
+    <insert id="insertOrder" parameterType="org.zerock.order.vo.OrderVO">
+	    INSERT INTO orders (order_no, items, total_price, discount, id, name, address, phone_number)
+	    VALUES (#{orderNo}, #{items, jdbcType=VARCHAR}, #{totalPrice}, #{discount}, #{id}, #{name}, #{address}, #{phoneNumber})
+	</insert>
+	
+	<update id="updateOrderStatus">
+	    UPDATE orders
+	    SET status = #{status}
+	    WHERE order_no = #{orderNo}
+	</update>
+
+	<delete id="deleteOrder">
+	    DELETE FROM orders
+	    WHERE order_no = #{orderNo}
+	</delete>
+	
+	<select id="selectOrderByOrderNo" parameterType="String" resultType="org.zerock.order.vo.OrderVO">
+    SELECT 
+    	order_no AS orderNo, 
+    	name,
+    	address,
+        phone_number AS phoneNumber, 
+        total_price AS totalPrice, 
+        discount, 
+        code, 
+        order_date AS orderDate, 
+        order_status AS orderStatus,
+        items
+    FROM 
+    	orders
+    WHERE 
+    	order_no = #{orderNo}
+	</select>
+	    
+  </mapper>
+  
+  
+  
+  
+  
+  

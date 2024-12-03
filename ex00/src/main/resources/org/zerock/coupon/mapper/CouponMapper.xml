@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="org.zerock.coupon.mapper.CouponMapper">
+  	
+    <!-- 쿠폰함 전체 항목 조회 -->
+    <select id="list" resultType="org.zerock.coupon.vo.CouponVO">
+	    SELECT no, code, name, quantity, discount_type, discount_value, valid_from, valid_until
+	    FROM coupon
+	</select>
+    
+    <!-- 쿠폰함 리스트 페이지 처리를 위한 전체 데이터 개수를 가져오는 쿼리 -->
+  	<select id="getTotalRow" resultType="int">
+  		select count(*)
+  		from coupon
+  	</select>
+  	
+  	<!-- 3. write -->
+    <insert id="write">
+	  	<selectKey keyProperty="no" resultType="Long" order="BEFORE">
+	  	select notice_seq.nextval from dual
+	  	</selectKey>
+	  	insert into coupon(no, code, name, quantity, discount_type, discount_value, valid_from, valid_until)
+	  	values(#{no},#{code}, #{name}, #{quantity},#{discount_type},#{discount_value}, #{valid_from}, #{valid_until})
+    </insert>
+    
+     <!-- 4. delete -->
+  	<delete id="delete" parameterType="long">
+	  	delete from coupon
+	  	where no = #{couponId}
+  	</delete>
+    
+    <!-- 5. 쿠폰을 사용자쿠폰함에 저장-->
+    <insert id="addCouponToUser" parameterType="org.zerock.coupon.vo.CouponVO">
+   		<selectKey keyProperty="no" resultType="Long" order="BEFORE">
+	  	select notice_seq.nextval from dual
+	  	</selectKey>
+        INSERT INTO coupon_user (no, user_id, code)
+        VALUES (#{no}, #{user_id}, #{code})
+    </insert>
+    
+    <!-- 사용자 쿠폰함 전체 항목 조회 -->
+<!--     <select id="list" resultType="org.zerock.coupon.vo.CouponVO"> -->
+<!-- 	    SELECT no, code, name, quantity, discount_type, discount_value, valid_from, valid_until -->
+<!-- 	    FROM coupon -->
+<!-- 	</select> -->
+
+
+  </mapper>

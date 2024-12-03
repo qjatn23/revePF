@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.zerock.mygiftcard.mapper.MygiftcardMapper">
+
+    <!-- 상품권 등록 -->
+  <insert id="insertGiftCard" useGeneratedKeys="true" keyProperty="cardId" keyColumn="CARD_ID">
+    INSERT INTO GIFT_CARD (
+        CARD_ID,
+        CARD_NUMBER,
+        BALANCE,
+        EXPIRY_DATE,
+        STATUS,
+        REGISTER_DATE
+    )
+    VALUES (
+        GIFT_CARD_SEQ.NEXTVAL,
+        #{cardNumber},
+        #{balance},
+        TO_DATE(#{expiryDate}, 'YYYY-MM-DD'),
+        #{status},
+        SYSDATE
+    )
+</insert>
+
+
+
+    <!-- 특정 상품권 조회 -->
+    <!-- 상품권 번호로 상품권 조회 -->
+	<!-- 상품권 번호로 상품권 조회 -->
+	<select id="findGiftCardByNumber" parameterType="String" resultType="org.zerock.mygiftcard.vo.MygiftcardVO">
+	    SELECT 
+	        CARD_ID AS cardId,
+	        CARD_NUMBER AS cardNumber,
+	        BALANCE AS balance,
+	        EXPIRY_DATE AS expiryDate,
+	        STATUS AS status,
+	        REGISTER_DATE AS registerDate
+	    FROM GIFT_CARD
+	    WHERE CARD_NUMBER = #{cardNumber}
+	</select>
+
+	
+	<!-- 상품권 상태 업데이트 -->
+	<update id="updateGiftCardStatus" parameterType="org.zerock.mygiftcard.vo.MygiftcardVO">
+	    UPDATE GIFT_CARD
+	    SET STATUS = #{status, jdbcType=VARCHAR},
+	        USER_ID = #{userId, jdbcType=VARCHAR}
+	    WHERE CARD_ID = #{cardId, jdbcType=BIGINT}
+	    AND STATUS = 'UNREGISTERED' <!-- 등록되지 않은 상태 확인 -->
+      AND EXPIRY_DATE >= SYSDATE <!-- 만료되지 않은 상품권만 -->
+	</update>
+	
+	<!-- 만료된 상품권 상태를 업데이트 -->
+	<update id="updateExpiredGiftCards">
+	    <![CDATA[
+	    UPDATE GIFT_CARD
+	    SET STATUS = 'EXPIRED',
+	    USER_ID = #{userId, jdbcType=VARCHAR}
+	    WHERE EXPIRY_DATE < SYSDATE
+	    AND STATUS = 'UNREGISTERED'
+	    ]]>
+	</update>
+
+    <!-- 상태별 잔액 총합 계산 -->
+    <select id="sumBalanceByStatus" resultType="int">
+	    SELECT SUM(BALANCE)
+	    FROM GIFT_CARD
+	    WHERE STATUS = #{status}
+	     AND USER_ID = #{userId}
+	</select>
+
+    <!-- 만료 예정 상품권 잔액 총합 -->
+    <select id="sumExpiringSoonBalance" resultType="int">
+	    SELECT SUM(BALANCE)
+	    FROM GIFT_CARD
+	    WHERE STATUS = 'AVAILABLE'
+	      AND EXPIRY_DATE BETWEEN SYSDATE AND SYSDATE + 30
+	      AND USER_ID = #{userId}
+	</select>
+
+    <!-- 사용 가능한 상품권 조회 -->
+	<select id="getAvailableGiftCards" parameterType="String" resultType="org.zerock.mygiftcard.vo.MygiftcardVO">
+	    SELECT 
+	        CARD_ID AS cardId,
+	        CARD_NUMBER AS cardNumber,
+	        BALANCE AS balance,
+	        EXPIRY_DATE AS expiryDate,
+	        STATUS AS status,
+	        REGISTER_DATE AS registerDate
+	    FROM 
+	        GIFT_CARD
+	    WHERE 
+	        STATUS = 'AVAILABLE'
+	        AND EXPIRY_DATE >= SYSDATE
+	        AND USER_ID = #{userId}
+	</select>
+
+    <!-- 만료된 상품권 조회 -->
+    <select id="getExpiredGiftCards" resultType="org.zerock.mygiftcard.vo.MygiftcardVO">
+	    <![CDATA[
+	        SELECT 
+	            CARD_ID AS cardId,
+	            CARD_NUMBER AS cardNumber,
+	            BALANCE AS balance,
+	            EXPIRY_DATE AS expiryDate,
+	            STATUS AS status,
+	            REGISTER_DATE AS registerDate
+	        FROM GIFT_CARD
+	        WHERE (STATUS = 'EXPIRED' OR EXPIRY_DATE < SYSDATE)
+	          AND USER_ID = #{userId}
+	    ]]>
+	</select>
+
+    <!-- 상품권 사용 내역 조회 -->
+    <select id="selectGiftCardUsageHistory" resultType="org.zerock.mygiftcard.vo.MygiftcardVO">
+	    SELECT 
+	        G.CARD_NUMBER AS cardNumber, 
+	        U.USED_AMOUNT AS balance, 
+	        U.USED_DATE AS registerDate, 
+	        U.ORDER_ID AS status
+	    FROM GIFT_CARD_USAGE U
+	    JOIN GIFT_CARD G ON U.CARD_ID = G.CARD_ID
+	    WHERE G.USER_ID = #{userId}
+	</select>
+
+    <!-- 상품권 번호 중복 확인 -->
+    <select id="checkDuplicateCardNumber" resultType="int">
+        SELECT COUNT(*)
+        FROM GIFT_CARD
+        WHERE CARD_NUMBER = #{cardNumber}
+    </select>
+
+</mapper>
